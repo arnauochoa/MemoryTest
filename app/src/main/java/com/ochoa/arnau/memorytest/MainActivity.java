@@ -18,7 +18,7 @@ import butterknife.BindViews;
 
 import static java.util.Collections.addAll;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity{
 
     Boolean isFirst = true;
     Boolean isFaceDown = true;
@@ -67,73 +67,79 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         img6 = getResources().getDrawable(R.drawable.ic_directions_walk_black_24dp);
         img7 = getResources().getDrawable(R.drawable.ic_new_releases_black_24dp);
 
-        images = new Drawable[]{img0, img1, img2, img3, img4, img5, img6, img7};
+        images = new Drawable[]{img0, img1, img2, img3, img4, img5, img6, img7,
+                                img0, img1, img2, img3, img4, img5, img6, img7,};
 
         shuffleCards();
     }
 
-    /*
-    passa array a list i duplica list
-     */
-    private List<Drawable> setImagesList(Drawable [] images) {
-        List<Drawable> imagesList = Arrays.asList(images);
-        List<Drawable> cardsList = imagesList;
-        cardsList.addAll(imagesList);
-        return imagesList;
-    }
-
     private void shuffleCards() {
-        List<Drawable> imagesList = setImagesList(images);
+        List<Drawable> imagesList = Arrays.asList(images);
         Collections.shuffle(imagesList);
         imagesList.toArray(card);
     }
 
-    @Override
-    public void onClick(View v) {
+    public void clicked(View v) {
         switch (v.getId()){
             case R.id.card0:
+                clickImage(v, 0);
                 break;
             case R.id.card1:
+                clickImage(v, 1);
                 break;
             case R.id.card2:
+                clickImage(v, 2);
                 break;
             case R.id.card3:
+                clickImage(v, 3);
                 break;
             case R.id.card4:
+                clickImage(v, 4);
                 break;
             case R.id.card5:
+                clickImage(v, 5);
                 break;
             case R.id.card6:
+                clickImage(v, 6);
                 break;
             case R.id.card7:
+                clickImage(v, 7);
                 break;
             case R.id.card8:
+                clickImage(v, 8);
                 break;
             case R.id.card9:
+                clickImage(v, 9);
                 break;
             case R.id.card10:
+                clickImage(v, 10);
                 break;
             case R.id.card11:
+                clickImage(v, 11);
                 break;
             case R.id.card12:
+                clickImage(v, 12);
                 break;
             case R.id.card13:
+                clickImage(v, 13);
                 break;
             case R.id.card14:
+                clickImage(v, 14);
                 break;
             case R.id.card15:
+                clickImage(v, 15);
                 break;
         }
     }
 
     private void clickImage (View view, int img){
         if (isFaceDown) {
-                flip(view, img);
+            flip(view, img);
         }
     }
 
     private void flip(View view, int img) {
-        if(!isFaceDown){
+        if(isFaceDown){
             flipper.flipImage( card[img], ((ImageView) view));
 
         }else{
