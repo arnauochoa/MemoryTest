@@ -21,11 +21,11 @@ import static java.util.Collections.addAll;
 public class MainActivity extends AppCompatActivity{
 
     Boolean isFirst = true;
-    Boolean isFaceDown = true;
+    Boolean[] isFaceDown = new Boolean[16];
 
     int size = 8;
 
-    private CoolImageFlipper flipper;
+    CoolImageFlipper flipper;
 
     //@BindDrawable(R.drawable.back_card) Drawable backCard; //drawable carta al reves
 
@@ -58,17 +58,21 @@ public class MainActivity extends AppCompatActivity{
 
         backCard = getResources().getDrawable(R.drawable.back_card);
 
-        img0 = getResources().getDrawable(R.drawable.ic_adb_black_24dp);
-        img1 = getResources().getDrawable(R.drawable.ic_android_black_24dp);
-        img2 = getResources().getDrawable(R.drawable.ic_assignment_late_black_24dp);
-        img3 = getResources().getDrawable(R.drawable.ic_attach_money_black_24dp);
-        img4 = getResources().getDrawable(R.drawable.ic_bug_report_black_24dp);
-        img5 = getResources().getDrawable(R.drawable.ic_contacts_black_24dp);
-        img6 = getResources().getDrawable(R.drawable.ic_directions_walk_black_24dp);
-        img7 = getResources().getDrawable(R.drawable.ic_new_releases_black_24dp);
+        img0 = getResources().getDrawable(R.drawable.ic_black_jack);
+        img1 = getResources().getDrawable(R.drawable.ic_diamonf);
+        img2 = getResources().getDrawable(R.drawable.ic_gambler);
+        img3 = getResources().getDrawable(R.drawable.ic_playing_cards);
+        img4 = getResources().getDrawable(R.drawable.ic_black_jack);
+        img5 = getResources().getDrawable(R.drawable.ic_diamonf);
+        img6 = getResources().getDrawable(R.drawable.ic_gambler);
+        img7 = getResources().getDrawable(R.drawable.ic_playing_cards);
 
         images = new Drawable[]{img0, img1, img2, img3, img4, img5, img6, img7,
                                 img0, img1, img2, img3, img4, img5, img6, img7,};
+
+        for(int i = 0; i < 16; i++){
+            isFaceDown[i] = true;
+        }
 
         shuffleCards();
     }
@@ -133,18 +137,27 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void clickImage (View view, int img){
-        if (isFaceDown) {
-            flip(view, img);
+        if (isFaceDown[img]) {
+            if(isFirst) {
+                flip(view, img);
+                isFaceDown[img] = false;
+                isFirst = false;
+            }else {
+                flip(view, img);
+                isFirst = true;
+                isFaceDown[img] = false;
+            }
         }
     }
 
     private void flip(View view, int img) {
-        if(isFaceDown){
+        if(isFaceDown[img]){
             flipper.flipImage( card[img], ((ImageView) view));
 
         }else{
             flipper.flipImage(backCard, ((ImageView) view));
         }
+        isFaceDown[img] = !isFaceDown[img];
     }
 }
 
